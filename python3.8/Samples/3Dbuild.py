@@ -87,8 +87,8 @@ try:
             if key == ESC or key == q:
                 break
             elif key == s:
-                # 生成点云图并进行可视化
-                print("Visualizing point cloud...")
+                # 生成点云图
+                print("Generating point cloud for 3D reconstruction...")
                 points = np.zeros((depthHeight * depthWidth, 6), dtype=np.float32)
                 points[:, 0] = np.repeat(np.arange(depthWidth), depthHeight)
                 points[:, 1] = np.tile(np.arange(depthHeight), depthWidth)
@@ -97,9 +97,23 @@ try:
 
                 point_cloud = create_point_cloud(points)
 
-                # 可视化点云
-                o3d.visualization.draw_geometries([point_cloud])
-                print("Point cloud visualization complete.")
+                # 使用open3d进行三维重建（例如Poisson重建）
+                # 进行去噪和下采样
+                point_cloud = point_cloud.voxel_down_sample(voxel_size=0.02)
+                cl, ind = point_cloud.remove_statistical_outlier(nb_neighbors=20, std_ratio=2.0)
+                point_cloud = point_cloud.select_by_index(ind)
+
+                # 法向量估计
+                point_cloud.estimate_normals(search_param=o3d.geometry.KDTreeSearchParamHybrid(radius=0.1, max_nn=30))
+
+                # 三维重建（Poisson重建）
+                print("Performing Poisson reconstruction...")
+                mesh, densities = o3d.geometry.TriangleMesh.create_from_point_cloud_poisson(point_cloud, depth=9)
+
+                # 可视化重建结果
+                mesh.compute_vertex_normals()
+                o3d.visualization.draw_geometries([mesh])
+                print("3D reconstruction visualization complete.")
 
     cv2.destroyAllWindows()
     pipe.stop()
