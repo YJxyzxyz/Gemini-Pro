@@ -10,6 +10,10 @@ def generate_point_cloud(rgb_image_path, depth_image_path, fx, fy, cx, cy, depth
     if rgb_image is None or depth_image is None:
         raise ValueError("无法加载图像，请检查路径和文件。")
 
+    # 如果深度图为多通道，转换为单通道灰度图
+    if len(depth_image.shape) == 3:
+        depth_image = cv2.cvtColor(depth_image, cv2.COLOR_BGR2GRAY)
+
     h, w = depth_image.shape
     assert rgb_image.shape[:2] == (h, w), "深度图和 RGB 图像尺寸不一致！"
 
@@ -45,8 +49,8 @@ def generate_point_cloud(rgb_image_path, depth_image_path, fx, fy, cx, cy, depth
 
 
 def main():
-    rgb_image_path = "./saved_images/color_image.png"
-    depth_image_path = "./saved_images/depth_image.png"
+    rgb_image_path = "./saved_images/color_image_0.png"
+    depth_image_path = "./saved_images/depth_image_0.png"
 
     fx, fy = 525.0, 525.0
     cx, cy = 319.5, 239.5

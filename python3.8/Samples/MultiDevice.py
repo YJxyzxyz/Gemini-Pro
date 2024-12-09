@@ -11,7 +11,8 @@ import os
 
 # 设置保存图像的文件夹路径
 save_directory = "saved_images"
-os.makedirs(save_directory, exist_ok=True)
+if not os.path.exists(save_directory):
+    os.makedirs(save_directory)
 
 q = 113
 ESC = 27
@@ -57,6 +58,7 @@ try:
     if pipe.getDevice().isPropertySupported(OB_PY_PROP_COLOR_MIRROR_BOOL, OB_PY_PERMISSION_WRITE):
         pipe.getDevice().setBoolProperty(OB_PY_PROP_COLOR_MIRROR_BOOL, True)
 
+    frame_count = 0
     while True:
         frameSet = pipe.waitForFrames(100)
         if frameSet is None:
@@ -95,15 +97,21 @@ try:
             if key == ESC or key == q:
                 break
             elif key == s:
-                # 保存RGB和深度图
-                color_image_path = os.path.join(save_directory, "color_image.png")
-                depth_image_path = os.path.join(save_directory, "depth_image.png")
+                # 保存RGB图像
+                color_image_path = os.path.join(save_directory, f"color_image_{frame_count}.png")
+                depth_image_path = os.path.join(save_directory, f"depth_image_{frame_count}.png")
 
                 cv2.imwrite(color_image_path, colorMat)
-                cv2.imwrite(depth_image_path, depthMat)  # 保存单通道深度图
+
+                # 保存深度图像，转换深度数据为8位灰度图用于可视化
+                depth_disp = (depthMat / 32).astype('uint8')
+                depth_disp_rgb = cv2.cvtColor(depth_disp, cv2.COLOR_GRAY2RGB)
+                cv2.imwrite(depth_image_path, depth_disp_rgb)  # 保存可视化的深度图
 
                 print(f"Saved color image to {color_image_path}")
                 print(f"Saved depth image to {depth_image_path}")
+
+                frame_count += 1
 
     cv2.destroyAllWindows()
     pipe.stop()
