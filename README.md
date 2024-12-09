@@ -36,6 +36,6 @@ MultiDevice.py：同时输出RGB图流和深度图流，并且按下S键会保�
 
 3Dbuild.py：利用深度图和RGB原图完成三维重建并保存点云文件
 
-![image](https://github.com/YJxyzxyz/Gemini-Pro/edit/master/python3.8/Samples/saved_images/color_image.png)
-![image](https://github.com/YJxyzxyz/Gemini-Pro/edit/master/python3.8/Samples/saved_images/depth_image.png)
-![image](https://github.com/YJxyzxyz/Gemini-Pro/edit/master/python3.8/Samples/saved_images/pointcloud.png)
+![image](https://github.com/YJxyzxyz/Gemini-Pro/blob/master/python3.8/Samples/saved_images/color_image.png)
+![image](https://github.com/YJxyzxyz/Gemini-Pro/blob/master/python3.8/Samples/saved_images/depth_image.png)
+![image](https://github.com/YJxyzxyz/Gemini-Pro/blob/master/python3.8/Samples/saved_images/pointcloud.png)
