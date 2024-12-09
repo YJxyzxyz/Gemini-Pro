@@ -26,7 +26,7 @@ open3d
 
 SaveDepth.py：实时输出深度图像流，用户按下s时可以保存图像。路径在depth_images
 
-![image](https://github.com/YJxyzxyz/Gemini-Pro/edit/master/python3.8/Samples/depth_images/depth_frame_0.png)
+![image](https://github.com/YJxyzxyz/Gemini-Pro/blob/master/python3.8/Samples/depth_images/depth_frame_0.png)
 
 PointCloud.py：修改了代码的部分逻辑，现在ply文件会保存在指定路径
 
