@@ -26,12 +26,16 @@ open3d
 
 SaveDepth.py：实时输出深度图像流，用户按下s时可以保存图像。路径在depth_images
 
-![depth_frame_0](D:\Project\Python\Gemini\python3.8\Samples\depth_images\depth_frame_0.png)
+![image](https://github.com/YJxyzxyz/Gemini-Pro/edit/master/python3.8/Samples/depth_images/depth_frame_0.png)
 
 PointCloud.py：修改了代码的部分逻辑，现在ply文件会保存在指定路径
 
- PointCloudShow.py：可视化ply文件
+PointCloudShow.py：可视化ply文件
 
-3Dbuild.py：按下s键可视化实时帧的点云文件
+MultiDevice.py：同时输出RGB图流和深度图流，并且按下S键会保存在指定文件夹中
 
-![1](D:\Project\Python\Gemini\python3.8\1.png)
+3Dbuild.py：利用深度图和RGB原图完成三维重建并保存点云文件
+
+![image](https://github.com/YJxyzxyz/Gemini-Pro/edit/master/python3.8/Samples/saved_images/color_image.png)
+![image](https://github.com/YJxyzxyz/Gemini-Pro/edit/master/python3.8/Samples/saved_images/depth_image.png)
+![image](https://github.com/YJxyzxyz/Gemini-Pro/edit/master/python3.8/Samples/saved_images/pointcloud.png)
